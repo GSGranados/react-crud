@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+#ReactNodeNew Modules
+/ReactNodeNew/node_modules
+
 # testing
 /coverage
 
