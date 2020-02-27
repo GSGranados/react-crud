@@ -1,11 +1,18 @@
 const express = require('express');
 const app = express();
+const employeeRouters = require('./routes/employeeRoute')
 
 //Settings
 app.set('port', process.env.PORT || 3000);
 
 //Middlewares
 app.use(express.json());
+
+app.use('/employee',employeeRouters)
+
+app.use('/test', (req, res) => {
+  res.send("Test route");
+});
 
 app.use('/',(req,res)=>{
   res.send("Hello World form NodeJS express.");
