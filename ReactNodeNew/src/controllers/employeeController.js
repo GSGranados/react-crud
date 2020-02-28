@@ -4,14 +4,18 @@ var Employee = require("../model/Employee");
 var Role = require("../model/Role");
 var sequelize = require("../model/database");
 
+//Migrar las tablas por si aun no existen en la DB
+sequelize.sync();
+
+/*
 controllers.testdata = async (req, res) => {
   const response = await sequelize
     .sync()
     .then(function() {
       //Create role
-     /* Role.create({
+      Role.create({
         role: "Admin"
-      });*/
+      });
 
       // create employee
       Employee.create({
@@ -30,9 +34,18 @@ controllers.testdata = async (req, res) => {
     });
   res.json(response);
 };
-
+*/
 controllers.list = async (req, res) => {
-  const data = await Employee.findAll();
+  const data = await Employee.findAll({
+    include: [Role]
+  })
+    .then(function(data) {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+
   res.json(data);
 };
 
