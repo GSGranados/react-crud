@@ -1,40 +1,50 @@
-const controller = {}
+const controllers = {};
 
-var Employee = require('../model/Employee');
-var Role = require('../model/Role');
-var sequelize = require('../model/database');
+var Employee = require("../model/Employee");
+var Role = require("../model/Role");
+var sequelize = require("../model/database");
 
-controllers.testdata = async ( req, res) => {
-  
-  const response = await sequelize.sync().then(function() {
-     const data =  Employee.findAll()
-     return data;
-  })
-  .catch(err => {
-    return err;
-  });
-  res.json(response)
+controllers.testdata = async (req, res) => {
+  const response = await sequelize
+    .sync()
+    .then(function() {
+      //Create role
+     /* Role.create({
+        role: "Admin"
+      });*/
 
-}
+      // create employee
+      Employee.create({
+        name: "John Smith",
+        email: "smith@mail.com",
+        address: "California FL 15",
+        phone: "76890091",
+        roleId: 1
+      });
 
-controllers.list = async ( req, res) => {
+      const data = Employee.findAll();
+      return data;
+    })
+    .catch(err => {
+      return err;
+    });
+  res.json(response);
+};
 
-    const data = await Employee.findAll();
-    res.json(data)
+controllers.list = async (req, res) => {
+  const data = await Employee.findAll();
+  res.json(data);
+};
 
-}
-
-controller.test = (req,res) => {
-
+controllers.test = (req, res) => {
   const data = {
     name: "Jhon Smith",
     age: 20,
-    city: 'London'
-  }
+    city: "London"
+  };
 
   console.log("Send data from controller employee");
   res.json(data);
-
 };
 
-module.exports = controller;
+module.exports = controllers;

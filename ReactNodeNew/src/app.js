@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const employeeRouters = require('./routes/employeeRoute')
+const employeeRouters = require('./routes/EmployeeRoute')
 
 //Settings
 app.set('port', process.env.PORT || 3000);

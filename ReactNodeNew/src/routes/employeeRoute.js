@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const employeeController = require('../controllers/employeeController');
+const employeeController = require('../controllers/EmployeeController');
 
 router.get('/test',employeeController.test);
-router.get('/testdata',EmployeeController.testdata );
-router.get('/list',EmployeeController.list );
+router.get('/testdata',employeeController.testdata );
+router.get('/list',employeeController.list );
 
 router.get('/save', (req, res) => {
 

@@ -4,7 +4,7 @@ const sequelize = new Sequelize(
 
 'node',
 'root',
-'password',
+'root',
 
     {
         host: 'localhost',
