@@ -105,4 +105,15 @@ controllers.update = async (req,res) => {
   res.json({success:true, data:data, message:"Updated successful"});
 }
 
+//Delete Employee
+controllers.delete = async (req, res) => {
+  // parameter post
+  const { id } = req.body;
+  // delete sequelize
+  const del = await Employee.destroy({
+    where: { id: id}
+  })
+  res.json({success:true,deleted:del,message:"Deleted successful"});
+}
+
 module.exports = controllers;

@@ -3,7 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-
+//sweetalert2
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 class listComponent extends React.Component {
   state = {
     listEmployee: []
@@ -21,6 +23,50 @@ class listComponent extends React.Component {
         alert(error);
       });
   }
+  //Sweer Alert Method
+  onDelete(id){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this imaginary file!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.sendDelete(id)
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+  }
+
+  sendDelete(userId)
+  {
+    // url de backend
+    const baseUrl = "http://localhost:3000/employee/delete"    // parameter data post
+    // network
+    axios.post(baseUrl,{
+      id:userId
+    })
+    .then(response =>{
+      if (response.data.success) {
+        Swal.fire(
+          'Deleted!',
+          'Your employee has been deleted.',
+          'success'
+        )
+      }
+    })
+    .catch ( error => {
+      alert(`Error: ${error}`)
+    })
+  }
+
   render() {
     return (
       <table className="table table-hover table-striped">
@@ -62,7 +108,7 @@ class listComponent extends React.Component {
             </Link>
           </td>
           <td>
-            <button className="btn btn-outline-danger "> Delete </button>
+          <button class="btn btn-outline-danger" onClick={()=>this.onDelete(data.id)}> Delete </button>
           </td>
         </tr>
       );

@@ -8,5 +8,6 @@ router.get('/list',employeeController.list );
 router.get('/get/:id',employeeController.get);
 router.post('/create', employeeController.create);
 router.post('/update/:id', employeeController.update);
+router.post('/delete',employeeController.delete);
 
 module.exports = router;
