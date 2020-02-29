@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -20,10 +20,10 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="https://github.com/GSGranados/react-crud"> Employee List </a>
+                <Link to ={ {pathname : `/`}} className="nav-link" href="https://github.com/GSGranados/react-crud"> Employee List </Link>
               </li>
             </ul>
-            <a className="btn btn-info "  href="/form">Add Employee</a>
+            <Link to ={{ pathname : `/form`}} className="btn btn-info "  >Add Employee</Link>
           </div>
         </nav>
 
