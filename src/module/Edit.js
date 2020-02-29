@@ -13,6 +13,7 @@ class EditComponent extends React.Component {
     stringRole: "",
     selectRole: 0
   };
+
   componentDidMount() {
     let userId = this.props.match.params.id;
     console.log(userId);
@@ -37,85 +38,117 @@ class EditComponent extends React.Component {
       });
   }
 
+  sendUpdate() {
+    //  get parameter id
+    let userId = this.props.match.params.id;
+    // url de backend
+    const baseUrl = `http://localhost:3000/employee/update/${userId}`;
+    // parametros de datos post
+    const datapost = {
+      name: this.state.campName,
+      email: this.state.campEmail,
+      phone: this.state.campPhone,
+      address: this.state.campAddress,
+      role: this.state.selectRole
+    };
+
+    axios
+      .post(baseUrl, datapost)
+      .then(response => {
+        if (response.data.success === true) {
+          alert(response.data.message);
+        } else {
+          alert("Error");
+        }
+      })
+      .catch(error => {
+        alert(`Error: ${error}`);
+      });
+  }
+
   render() {
     return (
-    <>
-    <Nav />
-      <div className="container py-4">
-        <div className="form-row justify-content-center">
-          <div className="form-group col-md-6">
-            <label htmlFor="inputPassword4">Name</label>
+      <>
+        <Nav />
+        <div className="container py-4">
+          <div className="form-row justify-content-center">
+            <div className="form-group col-md-6">
+              <label htmlFor="inputPassword4">Name</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Name"
+                value={this.state.campName}
+                onChange={value =>
+                  this.setState({ campName: value.target.value })
+                }
+              />
+            </div>
+            <div className="form-group col-md-6">
+              <label htmlFor="inputEmail4">Email</label>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Email"
+                value={this.state.campEmail}
+                onChange={value =>
+                  this.setState({ campEmail: value.target.value })
+                }
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label htmlFor="inputState">Role</label>
+              <select
+                id="inputState"
+                className="form-control"
+                onSelect={value =>
+                  this.setState({ selectRole: value.target.value })
+                }
+              >
+                <option defaultValue value={this.state.dataEmployee.roleId}>
+                  {this.state.stringRole}
+                </option>
+                <option value="1">Admin</option>
+                <option value="2">Project Manager</option>
+                <option value="3">Programer</option>
+              </select>
+            </div>
+            <div className="form-group col-md-6">
+              <label htmlFor="inputEmail4">Phone</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Phone"
+                value={this.state.campPhone}
+                onChange={value =>
+                  this.setState({ campPhone: value.target.value })
+                }
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="inputAddress">Address</label>
             <input
               type="text"
               className="form-control"
-              placeholder="Name"
-              value={this.state.campName}
+              id="inputAddress"
+              placeholder="1234 Main St"
+              value={this.state.campAddress}
               onChange={value =>
-                this.setState({ campName: value.target.value })
+                this.setState({ campAddress: value.target.value })
               }
             />
           </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="inputEmail4">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Email"
-              value={this.state.campEmail}
-              onChange={value =>
-                this.setState({ campEmail: value.target.value })
-              }
-            />
-          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            onClick={() => this.sendUpdate()}
+          >
+            Update
+          </button>
         </div>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label htmlFor="inputState">Role</label>
-            <select
-              id="inputState"
-              className="form-control"
-              onChange={value =>
-                this.setState({ selectRole: value.target.value })
-              }
-            >
-              <option defaultValue value={this.state.dataEmployee.roleId}>
-                {this.state.stringRole}
-              </option>
-              <option value="1">Admin</option>
-              <option value="2">Project Manager</option>
-              <option value="3">Programer</option>
-            </select>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="inputEmail4">Phone</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Phone"
-              value={this.state.campPhone}
-              onChange={value =>
-                this.setState({ campPhone: value.target.value })
-              }
-            />
-          </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="inputAddress">Address</label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputAddress"
-            placeholder="1234 Main St"
-            value={this.state.campAddress}
-            onChange={value =>
-              this.setState({ campAddress: value.target.value })
-            }
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Update
-        </button>
-      </div>
       </>
     );
   }

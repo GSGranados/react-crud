@@ -6,9 +6,7 @@ const employeeController = require('../controllers/EmployeeController');
 //router.get('/testdata',employeeController.testdata );
 router.get('/list',employeeController.list );
 router.get('/get/:id',employeeController.get);
-router.get('/save', (req, res) => {
-res.json({status: 'Employeed Saved'});
-
-});
+router.post('/create', employeeController.create);
+router.post('/update/:id', employeeController.update);
 
 module.exports = router;
