@@ -5,6 +5,7 @@ const employeeController = require('../controllers/EmployeeController');
 //router.get('/test',employeeController.test);
 //router.get('/testdata',employeeController.testdata );
 router.get('/list',employeeController.list );
+router.get('/get/:id',employeeController.get);
 router.get('/save', (req, res) => {
 res.json({status: 'Employeed Saved'});
 

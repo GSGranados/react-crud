@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
@@ -34,14 +35,12 @@ class listComponent extends React.Component {
             <th colSpan="2">Action</th>
           </tr>
         </thead>
-        <tbody>
-          {this.loadFillData()}
-        </tbody>
+        <tbody>{this.loadFillData()}</tbody>
       </table>
     );
   }
-//Method that it will work after component mounted.
-  loadFillData(){
+  //Method that it will work after component mounted.
+  loadFillData() {
     return this.state.listEmployee.map(data => {
       return (
         <tr key={data.id}>
@@ -52,17 +51,23 @@ class listComponent extends React.Component {
           <td>{data.address}</td>
           <td>{data.phone}</td>
           <td>
-            <button className="btn btn-outline-info "> Edit </button>
+            <Link
+              className="btn btn-outline-info "
+              to={{
+                pathname: `/edit/${data.id}`,
+                state: {data}
+              }}
+            >
+              Edit
+            </Link>
           </td>
           <td>
             <button className="btn btn-outline-danger "> Delete </button>
           </td>
         </tr>
       );
-    })
+    });
   }
-
 }
-
 
 export default listComponent;
