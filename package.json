@@ -10,7 +10,7 @@
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "mysql2": "^2.1.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "nodemon": "^2.0.2",
     "popper.js": "^1.16.1",
     "react": "^16.12.0",
